@@ -7,7 +7,7 @@ pub const NUM_OF_LEDS: usize = WIDTH * HEIGHT;
 
 pub struct DisplayController {
     adapter: WS28xxSpiAdapter,
-    rgb_values: Vec<(u8, u8, u8)>,
+    rgb_values: [(u8, u8, u8); NUM_OF_LEDS],
 }
 
 impl DisplayController {
@@ -15,7 +15,7 @@ impl DisplayController {
         let adapter = WS28xxSpiAdapter::new("/dev/spidev0.0").unwrap();
         Self {
             adapter,
-            rgb_values: vec![(0, 0, 0); NUM_OF_LEDS],
+            rgb_values: [(0u8, 0u8, 0u8); NUM_OF_LEDS],
         }
     }
 
@@ -24,27 +24,32 @@ impl DisplayController {
     }
 
     pub fn display_bars(&mut self, bars: &Box<[f64]>) {
-        self.rgb_values = vec![(0, 0, 0); NUM_OF_LEDS];
+        for rgb in &mut self.rgb_values {
+            *rgb = (0, 0, 0);
+        }
         let max = 0.000001f64;
         let min = 0.00000001f64;
 
-        let color = (0, 0, 10);
+        let red = (10, 0, 10);
+        let green = (0, 10, 10);
+        let _blue = (0, 0, 10);
+
         for (i, bar) in bars.iter().skip(bars.len() / 2).enumerate() {
             let value = (((bar - min) / (max - min)) * 8.0).clamp(0.0, 8.0) as usize;
             if i % 2 == 0 {
                 for j in 0..value {
                     if j == value - 1 {
-                        self.rgb_values[i * 8 + j] = (10, 0, 0);
+                        self.rgb_values[i * 8 + j] = red;
                     } else {
-                        self.rgb_values[i * 8 + j] = color;
+                        self.rgb_values[i * 8 + j] = green;
                     }
                 }
             } else {
                 for j in (0..value).rev() {
                     if j == value - 1 {
-                        self.rgb_values[i * 8 + (7 - j)] = (10, 0, 0);
+                        self.rgb_values[i * 8 + (7 - j)] = red;
                     } else {
-                        self.rgb_values[i * 8 + (7 - j)] = color;
+                        self.rgb_values[i * 8 + (7 - j)] = green;
                     }
                 }
             }
