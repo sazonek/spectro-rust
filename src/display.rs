@@ -31,14 +31,14 @@ impl DisplayController {
         let min = 0.00000001f64;
 
         const PATTERN: [(u8, u8, u8); 8] = [
-            (12, 8, 10),
-            (24, 16, 20),
-            (36, 24, 30),
-            (48, 32, 40),
-            (60, 40, 50),
-            (72, 48, 60),
-            (84, 56, 70),
-            (96, 64, 80),
+            (0, 10, 0),
+            (5, 10, 0),
+            (10, 10, 0),
+            (10, 5, 0),
+            (10, 0, 0),
+            (10, 0, 5),
+            (10, 0, 10),
+            (5, 0, 10),
         ];
 
         for (i, bar) in bars.iter().skip(bars.len() / 2).enumerate() {
@@ -49,7 +49,7 @@ impl DisplayController {
                 }
             } else {
                 for j in (0..value).rev() {
-                    self.rgb_values[i * 8 + (7 - j)] = PATTERN[7 - j];
+                    self.rgb_values[i * 8 + (7 - j)] = PATTERN[j];
                 }
             }
         }
