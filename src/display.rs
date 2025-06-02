@@ -30,27 +30,26 @@ impl DisplayController {
         let max = 0.000001f64;
         let min = 0.00000001f64;
 
-        let red = (10, 0, 10);
-        let green = (0, 10, 10);
-        let _blue = (0, 0, 10);
+        const PATTERN: [(u8, u8, u8); 8] = [
+            (0, 10, 0),
+            (5, 10, 0),
+            (10, 10, 0),
+            (10, 5, 0),
+            (10, 0, 0),
+            (10, 0, 5),
+            (10, 0, 10),
+            (5, 0, 10),
+        ];
 
         for (i, bar) in bars.iter().skip(bars.len() / 2).enumerate() {
             let value = (((bar - min) / (max - min)) * 8.0).clamp(0.0, 8.0) as usize;
             if i % 2 == 0 {
                 for j in 0..value {
-                    if j == value - 1 {
-                        self.rgb_values[i * 8 + j] = red;
-                    } else {
-                        self.rgb_values[i * 8 + j] = green;
-                    }
+                    self.rgb_values[i * 8 + j] = PATTERN[j];
                 }
             } else {
                 for j in (0..value).rev() {
-                    if j == value - 1 {
-                        self.rgb_values[i * 8 + (7 - j)] = red;
-                    } else {
-                        self.rgb_values[i * 8 + (7 - j)] = green;
-                    }
+                    self.rgb_values[i * 8 + (7 - j)] = PATTERN[j];
                 }
             }
         }
