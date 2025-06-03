@@ -32,13 +32,13 @@ impl DisplayController {
 
         const PATTERN: [(u8, u8, u8); 8] = [
             (0, 10, 0),
+            (0, 10, 0),
             (5, 10, 0),
-            (10, 10, 0),
+            (5, 10, 0),
+            (10, 5, 0),
             (10, 5, 0),
             (10, 0, 0),
-            (10, 0, 5),
-            (10, 0, 10),
-            (5, 0, 10),
+            (10, 0, 0),
         ];
 
         for (i, bar) in bars.iter().skip(bars.len() / 2).enumerate() {

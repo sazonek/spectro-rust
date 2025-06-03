@@ -22,6 +22,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!("Shutting down...");
     })?;
     let mut display_controller = DisplayController::new();
+    // let pcm = PCM::new("hw:0,0", Direction::Capture, false)?;
     let pcm = PCM::new("dmic_sv", Direction::Capture, false)?;
     {
         let hwp = HwParams::any(&pcm)?;
