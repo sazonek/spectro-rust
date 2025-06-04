@@ -7,7 +7,5 @@ repository = "https://github.com/sazonek/spectro-rust"
 license = "MIT"
 
 [dependencies]
-alsa = "0.9.1"
-cavacore = "2.0.2"
 ctrlc = "3.4.7"
 ws2818-rgb-led-spi-driver = "2.0.0"

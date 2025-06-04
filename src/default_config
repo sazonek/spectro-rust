@@ -1,0 +1,18 @@
+[general]
+  bars = 32
+  lower_cutoff_freq = 400
+  higher_cutoff_freq = 10000
+[input]
+  method = alsa
+  source = dmic_sv
+[output]
+  method = raw
+  channels = mono
+  mono_option = left
+  bit_format = 8bit
+[eq]
+  1 = 5 # bass
+  2 = 2
+  3 = 1 # midtone
+  4 = 1
+  5 = 1 # treble
