@@ -1,12 +1,15 @@
-## overview
+## Overview
 
-audio visualizer for raspberry pi using ws28xx rgb led matrices over spi.
-input from an i2s mems mic via a custom alsa [config](https://cdn-learn.adafruit.com/downloads/pdf/adafruit-i2s-mems-microphone-breakout.pdf). matrix wiring [info](https://github.com/phip1611/ws2818-rgb-led-spi-driver).
-built during coursework at ncu toruń. future support for other setups is a maybe.
+An audio visualizer for Raspberry Pi using WS28xx RGB LED matrices.
 
-## install
+Features audio input from an I2S MEMS microphone via a custom ALSA [configuration](https://cdn-learn.adafruit.com/downloads/pdf/adafruit-i2s-mems-microphone-breakout.pdf). See matrix wiring [information](https://github.com/phip1611/ws2818-rgb-led-spi-driver) for setup details.
+Uses the great [Cava](https://github.com/karlstav/cava) software for audio visualization.
 
-directly on pi:
+Built during coursework at NCU Toruń.
+
+## Installation
+Requires cava to be installed on the system.
+### Option 1: Direct installation on Pi
 
 ```sh
 git clone https://github.com/sazonek/spectro-rust.git
@@ -14,15 +17,39 @@ cd spectro-rust
 cargo install spectro-rust --path .
 ```
 
-although recommended to compile through [cross](https://github.com/cross-rs/cross) with supplied docker image. you'll figure it out.
+### Option 2: Cross-compilation (Recommended)
 
-## uninstall
+Compile using [cross](https://github.com/cross-rs/cross) with the supplied Docker image:
+
+```sh
+cross build --target aarch64-unknown-linux-gnu --release
+```
+
+Then copy the binary to your Pi:
+
+```sh
+scp target/aarch64-unknown-linux-gnu/release/spectro-rust pi@raspberrypi.local:/home/pi/
+```
+
+## Usage
+
+After installation, run the visualizer:
+
+```sh
+./spectro-rust
+```
+
+Config file should be placed in the same directory as the binary.
+
+## Uninstallation
+
+If installed via cargo:
 
 ```sh
 cargo uninstall spectro-rust
 ```
 
-## credits
+## Credits
 
 - [sazonek](https://github.com/sazonek)
 - [bwisniewski26](https://github.com/bwisniewski26)
